@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Texas Hold'em Simulator">
+    <meta name="author" content="Michael Karl">
+    <title>Texas Hold'em Simulator</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+    <link href="css/sticky-footer.css" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="container">
+    <div class="page-header">
+        <h1>Texas Hold'em Calculator</h1>
+    </div>
+
+    <p class="lead">Choose your cards. If you like, choose the Community Cards. Let the system simulate some rounds of
+        Texas Hold'em and it will tell you, how likely it is that you win, if no one folds.</p>
+
+    <table class="table">
+        <tr>
+            <th>Your Cards</th>
+            <th>Flop</th>
+            <th>Turn</th>
+            <th>River</th>
+        </tr>
+        <tr>
+            <td><h4>
+                <span class="label label-default" id="card0">No card chosen yet.</span>
+                <span class="label label-default" id="card1"></span>
+            </h4></td>
+            <td><h4>
+                <span class="label label-default" id="card2"></span>
+                <span class="label label-default" id="card3"></span>
+                <span class="label label-default" id="card4"></span>
+            </h4></td>
+            <td><h4>
+                <span class="label label-default" id="card5"></span>
+            </h4></td>
+            <td><h4>
+                <span class="label label-default" id="card6"></span>
+            </h4></td>
+        </tr>
+    </table>
+
+    <div class="panel panel-default">
+
+        <div class="panel-heading"><strong>Choose cards</strong></div>
+
+
+        <div class="panel-body">
+
+            <div class="row cardrow">
+                <div class="col-xs-2 col-md-1">
+                    <button class="btn btn-default red color-selector btn-lg" type="submit" value="h">♥</button>
+                </div>
+                <div class="col-xs-2 col-md-1">
+                    <button class="btn btn-default red color-selector btn-lg" type="submit" value="d">♦</button>
+                </div>
+                <div class="col-xs-2 col-md-1">
+                    <button class="btn btn-default black color-selector btn-lg" type="submit" value="c">♣</button>
+                </div>
+                <div class="col-xs-2 col-md-1">
+                    <button class="btn btn-default black color-selector btn-lg" type="submit" value="s">♠</button>
+                </div>
+            </div>
+
+            <div class="row cardrow">
+                <div class="col-xs-2 col-md-1">
+                    <button class="btn btn-default red card-selector" type="submit" value="2h">2♥</button>
+                </div>
+                <div class="col-xs-2 col-md-1">
+                    <button class="btn btn-default red card-selector" type="submit" value="3h">3♥</button>
+                </div>
+                <div class="col-xs-2 col-md-1">
+                    <button class="btn btn-default red card-selector" type="submit" value="4h">4♥</button>
+                </div>
+                <div class="col-xs-2 col-md-1">
+                    <button class="btn btn-default red card-selector" type="submit" value="5h">5♥</button>
+                </div>
+            </div>
+
+            <div class="row cardrow">
+                <div class="col-xs-2 col-md-1">
+                    <button class="btn btn-default red card-selector" type="submit" value="6h">6♥</button>
+                </div>
+                <div class="col-xs-2 col-md-1">
+                    <button class="btn btn-default red card-selector" type="submit" value="7h">7♥</button>
+                </div>
+                <div class="col-xs-2 col-md-1">
+                    <button class="btn btn-default red card-selector" type="submit" value="8h">8♥</button>
+                </div>
+                <div class="col-xs-2 col-md-1">
+                    <button class="btn btn-default red card-selector" type="submit" value="9h">9♥</button>
+                </div>
+            </div>
+
+            <div class="row cardrow">
+                <div class="col-xs-2 col-md-1">
+                    <button class="btn btn-default red card-selector" type="submit" value="Th">T♥</button>
+                </div>
+                <div class="col-xs-2 col-md-1">
+                    <button class="btn btn-default red card-selector" type="submit" value="Jh">J♥</button>
+                </div>
+                <div class="col-xs-2 col-md-1">
+                    <button class="btn btn-default red card-selector" type="submit" value="Qh">Q♥</button>
+                </div>
+                <div class="col-xs-2 col-md-1">
+                    <button class="btn btn-default red card-selector" type="submit" value="Kh">K♥</button>
+                </div>
+            </div>
+
+            <div class="row cardrow">
+                <div class="col-xs-2 col-md-1">
+                    <button class="btn btn-default red card-selector" type="submit" value="Ah">A♥</button>
+                </div>
+                <div class="col-xs-6 col-md-3">
+                    <button type="submit" class="btn btn-default" id="clearAllCards">Clear all cards</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <form id="startform" class="form-inline" style="margin-top: 20px">
+        <div class="form-group">
+            <label for="numberOfPlayers">Number of Players</label>
+            <input type="text" class="form-control" id="numberOfPlayers" value="6" size="1">
+        </div>
+        <div class="form-group">
+            <label for="numberOfRounds">Number of Rounds</label>
+            <input type="text" class="form-control" id="numberOfRounds" value="5000" size="7">
+        </div>
+        <button type="submit" class="btn btn-primary" id="go">Go!</button>
+    </form>
+
+    <p class="lead progr">
+    <div class="progress progr">
+        <div id="progressbar" class="progress-bar progr" role="progressbar" aria-valuenow="0" aria-valuemin="0"
+             aria-valuemax="100"
+             style="width:0%;transition:none;">
+            0%
+        </div>
+    </div>
+    </p>
+
+
+    <div class="panel panel-default result" style="display:none">
+        <div class="panel-body result" style="display:none">
+            <p id="result" class="result" style="display:none"></p>
+            <!-- <button class="btn btn-default card-selector result" type="submit" value="Show all games">Show all games</button> -->
+        </div>
+    </div>
+
+
+</div>
+
+
+<footer class="footer">
+    <div class="container">
+        <p class="text-muted">(C) by <a href="mailto:info@mkarl.de">Michael Karl.</a> Hands comparison is done using <a
+                href="https://github.com/goldfire/pokersolver" target="_blank">pokersolver.</a></p>
+    </div>
+</footer>
+
+<script src="utilities.js"></script>
+<script src="ui.js"></script>
+
+</body>
+</html>
