@@ -1,5 +1,5 @@
 # pokerCalculator
-The user has two choose his two Hole Cards.
+The user has to choose his two Hole Cards.
 Then he can choose Flop, Turn and/or River if he likes.
 He can also choose a number of rounds and a number of players.
 
